@@ -1,0 +1,75 @@
+name: Incorrect calculation
+description: Payroll ROI Calculator returns a figure you believe is statutorily wrong.
+title: "[calc] "
+labels: ["bug", "calculation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A wrong statutory figure is the most important kind of bug this package
+        can have, so thank you for reporting it.
+
+        The single most useful thing you can give us is **the rule that says we
+        are wrong**. Inputs plus expected output plus a citation becomes a test
+        case, and a test case becomes a fix.
+
+        This tool implements:
+
+        > Not a statutory calculation. It values the hours a payroll cycle takes at the loaded cost of the people doing it, nets off the software, and adds back the penalties and corrections that manual processing tends to produce.
+
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      placeholder: "crmleaf/roi-calculator 1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: financial-year
+    attributes:
+      label: Financial year the figure applies to
+      placeholder: "2025-26"
+    validations:
+      required: true
+
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Inputs
+      description: Every value you passed. Code is ideal.
+      render: php
+      placeholder: |
+        (new RoiCalculator())->calculate(
+        employeeCount: 250,
+        hourlyRate: Money::fromRupees(900),
+        hoursPerCycleManual: 24,
+        softwareAnnualCost: Money::fromRupees(180_000),
+        );
+    validations:
+      required: true
+
+  - type: input
+    id: actual
+    attributes:
+      label: Figure you got
+    validations:
+      required: true
+
+  - type: input
+    id: expected
+    attributes:
+      label: Figure you expected
+    validations:
+      required: true
+
+  - type: textarea
+    id: citation
+    attributes:
+      label: Statutory basis for the expected figure
+      description: >
+        The section, notification, circular or gazette entry. A link is perfect.
+        If you are working from an accountant's advice or a filing that was
+        accepted, say so - that is still useful evidence, just tell us which it is.
+    validations:
+      required: true
